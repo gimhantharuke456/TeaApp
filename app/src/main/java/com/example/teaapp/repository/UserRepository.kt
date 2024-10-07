@@ -31,16 +31,5 @@ class UserRepository {
         }
     }
 
-    suspend fun register(username: String, email: String, password: String): Result<RegisterResponse> {
-        return try {
-            val response = apiService.register(RegisterRequest(username, email, password, "User"))
-            if (response.isSuccessful) {
-                Result.success(response.body()!!)
-            } else {
-                Result.failure(Exception("Registration failed: ${response.code()}"))
-            }
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
+
 }

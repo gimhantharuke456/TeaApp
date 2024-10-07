@@ -12,8 +12,11 @@ data class OrderResponse(
     val id: String,
     val shopItemId: String,
     val shopId: String,
+    val userId: String?,
     val quantity: Int,
     val address: String,
     val status: String,
-    val userId: String
+    val userName: String,
+    val shopName: String,
+    val itemName: String
 )

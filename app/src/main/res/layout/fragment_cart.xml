@@ -39,21 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <EditText
-            android:id="@+id/promoCodeEditText"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_weight="1"
-            android:background="@drawable/edit_text_background"
-            android:hint="Promo Code"
-            android:inputType="text" />
 
-        <Button
-            android:id="@+id/applyPromoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Apply"
-            android:backgroundTint="#8BC34A" />
     </LinearLayout>
 
     <LinearLayout

@@ -1,11 +1,12 @@
 package com.example.teaapp
 
+import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.teaapp.databinding.ItemShopItemBinding
 import com.example.teaapp.model.ShopItem
 
@@ -19,19 +20,38 @@ class ShopItemAdapter(
     }
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
-        holder.bind(getItem(position), onAddToCartClick)
+        val shopItem = getItem(position)
+        holder.bind(shopItem, onAddToCartClick) { onShopItemClick(shopItem, holder) }
+    }
+
+    private fun onShopItemClick(shopItem: ShopItem, holder: ShopItemViewHolder) {
+        // Start SingleShopActivity
+        val context = holder.itemView.context
+        val intent = Intent(context, SIngleShopItemActivity::class.java).apply {
+            putExtra("shopItem", shopItem) // Pass the shop item
+        }
+        context.startActivity(intent)
     }
 
     class ShopItemViewHolder(private val binding: ItemShopItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(shopItem: ShopItem, onAddToCartClick: (ShopItem) -> Unit) {
+        fun bind(shopItem: ShopItem, onAddToCartClick: (ShopItem) -> Unit, onItemClick: () -> Unit) {
             binding.itemName.text = shopItem.name
             binding.itemPrice.text = "$${shopItem.price}"
-            // Load the image using your preferred image loading library (e.g., Glide, Picasso)
+
+            // Load the image using Glide
+            Glide.with(binding.itemImage.context)
+                .load(shopItem.imageUrl)
+                .into(binding.itemImage)
 
             binding.addToCartButton.setOnClickListener {
                 onAddToCartClick(shopItem)
+            }
+
+            // Set the onClickListener for the whole item
+            binding.root.setOnClickListener {
+                onItemClick() // Navigate to SingleShopActivity
             }
         }
     }

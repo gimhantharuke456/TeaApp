@@ -15,6 +15,12 @@
         android:theme="@style/Theme.TeaApp"
         tools:targetApi="31">
         <activity
+            android:name=".SIngleShopItemActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MyOrderActivity"
+            android:exported="false" />
+        <activity
             android:name=".CheckoutActivity"
             android:exported="false" />
         <activity

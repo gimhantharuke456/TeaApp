@@ -1,5 +1,6 @@
 package com.example.teaapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -26,6 +27,7 @@ class CartFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -74,11 +76,7 @@ class CartFragment : Fragment() {
     }
 
     private fun setupPromoCode() {
-        binding.applyPromoButton.setOnClickListener {
-            val promoCode = binding.promoCodeEditText.text.toString()
-            // Implement promo code logic here
-            updateTotals()
-        }
+
     }
 
     private fun updateTotals() {
