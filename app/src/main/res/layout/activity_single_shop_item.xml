@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".SIngleShopItemActivity">
 
     <LinearLayout
@@ -15,11 +16,10 @@
         <ImageView
             android:id="@+id/item_image"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:layout_marginBottom="16dp"
-            android:layout_weight="1"
-            android:contentDescription="Item image" />
+            android:contentDescription="Item image"
+            android:layout_marginBottom="16dp" />
 
         <TextView
             android:id="@+id/item_name"
@@ -52,7 +52,16 @@
             android:layout_height="wrap_content"
             android:text="Add to Cart"
             android:backgroundTint="@color/colorPrimary"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            tools:text="Reviews" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/reviewRecyclerView"

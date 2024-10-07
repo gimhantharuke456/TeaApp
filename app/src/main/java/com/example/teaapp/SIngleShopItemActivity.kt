@@ -9,6 +9,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.teaapp.dto.CreateReviewResponse
 import com.example.teaapp.model.CartItem
@@ -27,6 +29,8 @@ class SIngleShopItemActivity : AppCompatActivity() {
     private lateinit var itemDescription: TextView
     private lateinit var addToCartButton: Button
     private lateinit var cartService: DatabaseHelper
+    private lateinit var reviewRecyclerView: RecyclerView
+    private lateinit var reviewAdapter: ReviewAdapter
     private var reviews: List<CreateReviewResponse> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +45,12 @@ class SIngleShopItemActivity : AppCompatActivity() {
         itemDescription = findViewById(R.id.item_description)
         addToCartButton = findViewById(R.id.add_to_cart_button)
 
+        // Initialize RecyclerView for reviews
+        reviewRecyclerView = findViewById(R.id.reviewRecyclerView)
+        reviewRecyclerView.layoutManager = LinearLayoutManager(this)
+        reviewAdapter = ReviewAdapter(emptyList())
+        reviewRecyclerView.adapter = reviewAdapter
+
         // Load the shop item data
         val shopItem = intent.getSerializableExtra("shopItem") as? ShopItem
         shopItem?.let {
@@ -49,7 +59,6 @@ class SIngleShopItemActivity : AppCompatActivity() {
 
         // Add to Cart button functionality
         addToCartButton.setOnClickListener {
-            // Handle add to cart functionality
             addToCart(shopItem)
         }
 
@@ -79,23 +88,14 @@ class SIngleShopItemActivity : AppCompatActivity() {
             try {
                 reviews = ReviewService.getReviewsShopId(shopItemId)
                 withContext(Dispatchers.Main) {
-                    // Update UI with the fetched reviews
-                    displayReviews(reviews)
+                    // Update the RecyclerView with the fetched reviews
+                    reviewAdapter.updateReviews(reviews)
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@SIngleShopItemActivity, "Error fetching reviews: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
-        }
-    }
-
-    private fun displayReviews(reviews: List<CreateReviewResponse>) {
-        // Implement your logic to display reviews (e.g., update a RecyclerView)
-        // For example:
-        reviews.forEach { review ->
-            // You can log the reviews or update the UI elements to display them
-            println("Review: ${review.reviewText} - Stars: ${review.stars}")
         }
     }
 
